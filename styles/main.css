@@ -979,3 +979,8 @@ a.trust-item:hover { opacity: 0.75; }
   .products-grid     { grid-template-columns: repeat(3, 1fr); }
   .diferenciais-grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+
+.logo-image {
+  max-width: 80px;
+}
