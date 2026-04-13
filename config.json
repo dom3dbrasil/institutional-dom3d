@@ -1,0 +1,106 @@
+{
+  "lojas": {
+    "shopee": {
+      "url": "https://shopee.com.br/dom3d"
+    },
+    "mercadoLivre": {
+      "url": "https://www.mercadolivre.com.br/pagina/lojadom3d"
+    }
+  },
+
+  "topProdutos": [
+    {
+      "rank": 1,
+      "categoria": "Cortador de Biscoito",
+      "nome": "Kit 6 Cortador Marcador Cookie Copa Do Mundo 2026",
+      "descricao": "O preferido das nossas clientes. Estampa com detalhes finos para festas impecáveis.",
+      "imagem": "images/produtos/world-cup.webp",
+      "imagemAlt": "Cortador de Biscoito Dom 3D",
+      "shopeeUrl": "https://shopee.com.br/Kit-6-Cortador-Marcador-Cookie-Copa-Do-Mundo-2026-i.884180524.58203097805",
+      "mercadoLivreUrl": "https://www.mercadolivre.com.br/kit-6-cortador-marcador-cookie-copa-do-mundo/up/MLBU3725872164?pdp_filters=item_id%3AMLB4413726463#polycard_client=mshops-appearance-api&component=relevant_item_container&wid=MLB4413726463&title=Novidade%21+Garanta+j%C3%A1+seu+kit+para+Copa+do+Mundo+2026&tracking_id=e0ec0850c45d4b856750f97634f96149&sid=storefronts&global_position=8"
+    },
+    {
+      "rank": 2,
+      "categoria": "Cortador de Biscoito",
+      "nome": "Kit 6 Cortador Marcador Cookie Animais Da Fazenda",
+      "descricao": "Conjunto com 6 formas de animais: galinha, cachorro, vaca, cavalo, ovelha e gato.",
+      "imagem": "images/produtos/farm.webp",
+      "imagemAlt": "Cortador de Biscoito Dom 3D",
+      "shopeeUrl": "https://shopee.com.br/Kit-6-Cortador-Marcador-Cookie-Biscoito-Animais-Da-Fazenda-Rosto-i.884180524.58258388369",
+      "mercadoLivreUrl": "https://shopee.com.br/Kit-6-Cortador-Marcador-Cookie-Biscoito-Animais-Da-Fazenda-Rosto-i.884180524.58258388369"
+    },
+    {
+      "rank": 3,
+      "categoria": "Carimbo de Brigadeiro",
+      "nome": "Carimbo para Brigadeiro e Doces - Casamento",
+      "descricao": "Carimbos para brigadeiros e doces de casamento.",
+      "imagem": "images/produtos/marry.webp",
+      "imagemAlt": "Kit Temático Dom 3D",
+      "shopeeUrl": "https://shopee.com.br/Carimbo-para-Brigadeiro-e-Doces-Casamento-Kit-com-4-unidades-i.884180524.22099444053",
+      "mercadoLivreUrl": "https://www.mercadolivre.com.br/kit-4-carimbos-para-brigadeiro-e-doces--casamento/up/MLBU3852278666?pdp_filters=item_id:MLB6470301522"
+    }
+  ],
+
+  "depoimentos": [
+    {
+      "avaliacao": 5,
+      "texto": "Meus brigadeiros ficaram lindíssimos com o carimbo! Qualidade incrível e chegou super bem embalado, parecia presente. Com certeza vou comprar mais!",
+      "foto": "images/depoimentos/carimbo.webp",
+      "fotoAlt": "Foto enviada pelo cliente",
+      "autorNome": "Ana Paula C.",
+      "autorPerfil": "Confeiteira · São Paulo, SP",
+      "autorIniciais": "AP"
+    },
+    {
+      "avaliacao": 5,
+      "texto": "Os cortadores de biscoito são perfeitos — bordas muito precisas, os biscoitos saem impecáveis. Atendimento excelente e envio ultrarrápido. Recomendo de olhos fechados!",
+      "foto": "images/depoimentos/easter.webp",
+      "fotoAlt": "Foto enviada pelo cliente",
+      "autorNome": "Mariana S.",
+      "autorPerfil": "Doceira Artesanal · Belo Horizonte, MG",
+      "autorIniciais": "MS"
+    },
+    {
+      "avaliacao": 5,
+      "texto": "Comprei o kit temático de Fazenda para o aniversário do meu filho e foi um sucesso absoluto! Os detalhes são incríveis. Já estou encomendando o próximo kit.",
+      "foto": "images/depoimentos/farm.webp",
+      "fotoAlt": "Foto enviada pelo cliente",
+      "autorNome": "Fernanda R.",
+      "autorPerfil": "Mãe & Confeiteira · Curitiba, PR",
+      "autorIniciais": "FR"
+    },
+    {
+      "avaliacao": 5,
+      "texto": "Trabalho com encomendas e a Dom 3D virou minha fornecedora fixa. Qualidade constante, prazo sempre cumprido e embalagem que impressiona qualquer cliente. Parceria top!",
+      "foto": "images/depoimentos/christmas.webp",
+      "fotoAlt": "Foto enviada pelo cliente",
+      "autorNome": "Camila L.",
+      "autorPerfil": "Confeiteira Profissional · Rio de Janeiro, RJ",
+      "autorIniciais": "CL"
+    }
+  ],
+
+  "produtos": [
+    {
+      "maisVendido": false,
+      "icone": "cortador",
+      "nome": "Cortadores de Biscoito",
+      "descricao": "Formas precisas com bordas perfeitas para cortes limpos e uniformes. Dezenas de formatos e temas disponíveis.",
+      "tags": ["Alta precisão", "Bordas afiadas", "Vários temas"]
+    },
+    {
+      "maisVendido": true,
+      "icone": "carimbo",
+      "nome": "Carimbos de Brigadeiro",
+      "descricao": "Estampas detalhadas e elegantes para personalizar seus brigadeiros e surpreender seus clientes a cada encomenda.",
+      "tags": ["Design exclusivo", "Fácil de limpar", "Durável"]
+    },
+    {
+      "maisVendido": false,
+      "icone": "kits",
+      "nome": "Kits Temáticos",
+      "descricao": "Temas em alta: Stan Lee, Pokémon, Kawaii, Disney e muito mais. Perfeitos para festas e encomendas personalizadas.",
+      "tags": ["Temas em alta", "Kits completos", "Personalizável"]
+    }
+  ]
+}

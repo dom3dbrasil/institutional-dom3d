@@ -19,7 +19,6 @@ menuToggle.addEventListener('click', () => {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Close nav when a link is clicked
 nav.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     nav.classList.remove('open');
@@ -29,35 +28,135 @@ nav.querySelectorAll('a').forEach(link => {
   });
 });
 
-/* === FADE-IN ON SCROLL (IntersectionObserver) === */
-const fadeTargets = document.querySelectorAll('.diferencial-card.fade-in');
+/* === SVG ICONS === */
+const ICONS = {
+  cortador: `<svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <rect x="6" y="6" width="36" height="36" rx="6"/>
+    <path d="M14 24 C14 18 20 14 24 14 C28 14 34 18 34 24 C34 30 28 34 24 34 C20 34 14 30 14 24Z"/>
+    <circle cx="24" cy="24" r="3" fill="currentColor" stroke="none"/>
+  </svg>`,
+  carimbo: `<svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <circle cx="24" cy="24" r="17"/>
+    <circle cx="24" cy="24" r="9"/>
+    <circle cx="24" cy="24" r="3" fill="currentColor" stroke="none"/>
+    <line x1="24" y1="4" x2="24" y2="7"/>
+    <line x1="24" y1="41" x2="24" y2="44"/>
+    <line x1="4" y1="24" x2="7" y2="24"/>
+    <line x1="41" y1="24" x2="44" y2="24"/>
+  </svg>`,
+  kits: `<svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <polygon points="24,4 29,17 43,17 32,26 36,40 24,32 12,40 16,26 5,17 19,17"/>
+  </svg>`,
+  utensilios: `<svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <path d="M8 38 L24 10 L40 38 Z"/>
+    <line x1="13" y1="28" x2="35" y2="28"/>
+    <circle cx="24" cy="22" r="4"/>
+  </svg>`,
+  kawaii: `<svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <path d="M10 36 C10 36 7 26 7 20 C7 12.8 14 7 22 7 C22 7 20 15 24 19 C28 23 38 21 38 21 C38 21 42 28 37 36 C32 42 22 44 17 41 C12 38 10 36 10 36Z"/>
+    <circle cx="24" cy="26" r="5"/>
+  </svg>`,
+};
 
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        // Stagger each card slightly
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, i * 100);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
+/* === RENDER HELPERS === */
+function renderStars(n) {
+  return '★'.repeat(n);
+}
 
-  fadeTargets.forEach(el => observer.observe(el));
-} else {
-  // Fallback: show all immediately
-  fadeTargets.forEach(el => el.classList.add('visible'));
+function updateLojaLinks(lojas) {
+  document.querySelectorAll('[data-loja="shopee"]').forEach(el => {
+    el.href = lojas.shopee.url;
+  });
+  document.querySelectorAll('[data-loja="ml"]').forEach(el => {
+    el.href = lojas.mercadoLivre.url;
+  });
+}
+
+function renderTopProdutos(produtos) {
+  const grid = document.getElementById('topProdutosGrid');
+  if (!grid) return;
+  grid.innerHTML = produtos.map(p => `
+    <article class="top-card">
+      <div class="top-card-img">
+        <img src="${p.imagem}" alt="${p.imagemAlt}" loading="lazy">
+        <span class="top-rank">#${p.rank}</span>
+      </div>
+      <div class="top-card-body">
+        <span class="top-category">${p.categoria}</span>
+        <h3>${p.nome}</h3>
+        <p>${p.descricao}</p>
+        <div class="top-card-ctas">
+          <a href="${p.shopeeUrl}" class="btn btn-shopee btn-sm" target="_blank" rel="noopener noreferrer">Ver na Shopee</a>
+          <a href="${p.mercadoLivreUrl}" class="btn btn-ml btn-sm" target="_blank" rel="noopener noreferrer">Ver no ML</a>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderProdutos(produtos) {
+  const grid = document.getElementById('produtosGrid');
+  if (!grid) return;
+  grid.innerHTML = produtos.map(p => `
+    <article class="product-card${p.maisVendido ? ' product-card--featured' : ''}">
+      ${p.maisVendido ? '<div class="product-badge-top">Mais Vendido</div>' : ''}
+      <div class="product-icon">${ICONS[p.icone] || ''}</div>
+      <h3>${p.nome}</h3>
+      <p>${p.descricao}</p>
+      <ul class="product-tags">
+        ${p.tags.map(t => `<li>${t}</li>`).join('')}
+      </ul>
+    </article>
+  `).join('');
+}
+
+function renderDepoimentos(depoimentos) {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  track.innerHTML = depoimentos.map(d => `
+    <article class="dep-card">
+      <div class="stars" aria-label="${d.avaliacao} estrelas">${renderStars(d.avaliacao)}</div>
+      <blockquote>"${d.texto}"</blockquote>
+      <figure class="dep-photo">
+        <img src="${d.foto}" alt="${d.fotoAlt}" loading="lazy">
+      </figure>
+      <footer class="dep-author">
+        <div class="avatar">${d.autorIniciais}</div>
+        <div><strong>${d.autorNome}</strong><span>${d.autorPerfil}</span></div>
+      </footer>
+    </article>
+  `).join('');
+}
+
+/* === FADE-IN ON SCROLL === */
+function initFadeObserver() {
+  const fadeTargets = document.querySelectorAll('.diferencial-card.fade-in');
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    fadeTargets.forEach(el => observer.observe(el));
+  } else {
+    fadeTargets.forEach(el => el.classList.add('visible'));
+  }
 }
 
 /* === TESTIMONIALS CAROUSEL === */
-(function initCarousel() {
-  const viewport  = document.getElementById('carouselViewport');
-  const track     = document.getElementById('carouselTrack');
-  const prevBtn   = document.getElementById('prevBtn');
-  const nextBtn   = document.getElementById('nextBtn');
-  const dotsWrap  = document.getElementById('carouselDots');
+function initCarousel() {
+  const viewport = document.getElementById('carouselViewport');
+  const track    = document.getElementById('carouselTrack');
+  const prevBtn  = document.getElementById('prevBtn');
+  const nextBtn  = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('carouselDots');
 
   if (!track) return;
 
@@ -69,7 +168,6 @@ if ('IntersectionObserver' in window) {
   let visibleCount = 1;
   let maxIndex = 0;
 
-  /* Build dots */
   function buildDots() {
     dotsWrap.innerHTML = '';
     const dotCount = maxIndex + 1;
@@ -111,7 +209,6 @@ if ('IntersectionObserver' in window) {
     updateDots();
     applyTransform(false);
 
-    // Hide controls when all cards fit
     const controls = document.querySelector('.carousel-controls');
     if (controls) {
       controls.style.display = maxIndex === 0 ? 'none' : 'flex';
@@ -122,8 +219,7 @@ if ('IntersectionObserver' in window) {
     if (!animate) track.style.transition = 'none';
     track.style.transform = `translateX(-${current * (cardWidth + gap)}px)`;
     if (!animate) {
-      // Force reflow then restore transition
-      track.offsetHeight; // eslint-disable-line no-unused-expressions
+      track.offsetHeight;
       track.style.transition = '';
     }
   }
@@ -137,7 +233,6 @@ if ('IntersectionObserver' in window) {
   prevBtn.addEventListener('click', () => goTo(current - 1));
   nextBtn.addEventListener('click', () => goTo(current + 1));
 
-  // Swipe support (touch)
   let touchStartX = 0;
   viewport.addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
@@ -149,10 +244,32 @@ if ('IntersectionObserver' in window) {
     }
   }, { passive: true });
 
-  // Init
   measure();
   window.addEventListener('resize', () => {
     clearTimeout(window._carouselResizeTimer);
     window._carouselResizeTimer = setTimeout(measure, 120);
   });
-})();
+}
+
+/* === BOOT === */
+async function init() {
+  let cfg;
+  try {
+    const res = await fetch('./config.json');
+    if (!res.ok) throw new Error(res.status);
+    cfg = await res.json();
+  } catch (e) {
+    console.error('Dom 3D: falha ao carregar config.json', e);
+    return;
+  }
+
+  updateLojaLinks(cfg.lojas);
+  renderTopProdutos(cfg.topProdutos);
+  renderProdutos(cfg.produtos);
+  renderDepoimentos(cfg.depoimentos);
+
+  initFadeObserver();
+  initCarousel();
+}
+
+init();
